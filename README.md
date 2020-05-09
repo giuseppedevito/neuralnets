@@ -23,5 +23,44 @@ Example
 
 ./Perceptron 1000
 
-Xor Network
+## OrPerceptron
+
+The same as Perceptron but it find the regression line for the Or boolean operator.
+
+Compilation
+
+g++ -o OrPerceptron OrPerceptron.cc
+
+Execution
+
+./OrPerceptron <number of training cycles>
+  
+Example
+
+./OrPerceptron 10000
+
+## Xor Network
+
+The double layer neural network used to find the plane that divide the xor solutions.
+
+Number of Inputs: 2
+
+Number of hidden nodes: 3
+
+Number of outputs: 1
+
+### Pay Attention: the number of training cycles must be high (I used 1000000)
+
+Compilation
+
+g++ -o XorNet XorNet.cc
+
+Execution
+
+./XorNet <number of training cycles>
+  
+Example
+
+./XorNet 1000000
+
 
