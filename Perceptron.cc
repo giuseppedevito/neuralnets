@@ -85,6 +85,33 @@ double propagate(){
     return activation;
 }
 
+/**
+ * IMPORTANT: if k is the output of an Output Node and p is the
+ * expected value from the specific training set, we are doing the
+ * following error:
+ * E = p - k
+ * Now, we have to adjust weights to reduce such an error. In the
+ * neural network litterature, Mean Squared Error (MSE) is used to delete
+ * the signum from the computation:
+ * Em = (p - k)^2/N where N is the number of samples (1 in our case).
+ * So let consider E = (p - k)^2
+ * If we want to update a weight (for example w1) to reduce the error,
+ * we can use the gradient descendant tecnique:
+ * w1 = w1 + Delta(w1), and for Delta we use a little fraction of the
+ * derivate of the MSE Error:
+ * Delta(w1) = - lr * dE/dw1, where lr is the learning rate, 0.1 in our
+ * case, the signum (-) is added since the derivate of E is negative
+ * if we have to increase w1, positive if we have to reduce it.
+ * Hence we have to calculate dEdw1 using chain rules (funzioni composte, in italiano)
+ * dEdw1 = dEdk * dkdw1 = -2(p - k) * dkdw1
+ * But k = sigmoid(t), with t = w1*x1 + w2*x2 + w3*x3 + b, with xi=output of i-th hidden layer.
+ * So dkdw1 = dkdt * dtdw1 = sigmoid(t)*(1 - sigmoid(t)) * dtdw1,
+ * and dtdw1 = x1.
+ * Definitively we have:
+ * dEdw1 = dEdk * dkdt * dtdw1 = -2(p - k) * sigmoid(t)*(1 - sigmoid(t)) * x1
+ * For the bias we have 
+ * dEdb = dEdk * dkdt * dtdb = -2(p - k) * sigmoid(t)*(1 - sigmoid(t))
+ */
 void learn(double propagated_output){
     double k = propagated_output;
     //double sig_k = sigmoid(k);
